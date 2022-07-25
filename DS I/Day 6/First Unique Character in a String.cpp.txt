@@ -1,0 +1,27 @@
+`class Solution {
+public:
+    int firstUniqChar(string s) {
+        unordered_map <char,int> mp;
+        for(int i=0; i<s.length(); i++){
+            if(mp.find(s[i]) != mp.end()){
+                mp[s[i]]++;
+            }
+            else{
+                mp[s[i]] = 1;
+            }
+        }
+        int ans;
+        int f=0;
+        for(int j=0; j<s.length(); j++){
+            if(mp[s[j]] == 1){
+                ans = j;
+                f=1;
+                break;
+            }
+        }
+        if(f==0){
+            ans = -1;
+        }
+        return ans;
+    }
+};
