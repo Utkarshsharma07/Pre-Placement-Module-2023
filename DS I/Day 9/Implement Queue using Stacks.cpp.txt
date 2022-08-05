@@ -1,0 +1,42 @@
+class MyQueue {
+    stack<int> temp;
+    stack<int> s;
+public:
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {     
+		// hold the element of main stack s in temp
+        while(!s.empty()){
+            temp.push(s.top());
+            s.pop();
+        }
+        s.push(x);
+		
+		// copy the elements from temp to main stack s.
+		// now elements have been reversed in main stack
+        while(!temp.empty()){
+            s.push(temp.top());
+            temp.pop();
+        }
+    }
+    
+    int pop() {
+        if(s.empty()) return -1;
+        else{
+            int ans = s.top();
+            s.pop();
+            return ans;
+        }
+    }
+    int peek() {
+        if(s.empty()) return -1;
+        else return s.top();
+    }
+    
+    bool empty() {
+        if(s.empty()) return true;
+        else return false;
+    }
+};
