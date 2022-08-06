@@ -1,0 +1,25 @@
+class Codec {
+public: string temp; 
+    string serhelper(TreeNode*&root){
+        if(!root) return "#"; 
+        return to_string(root->val)+','+serhelper(root->left)+','+serhelper(root->right);
+    }
+    string serialize(TreeNode* root) {
+        string encode=serhelper(root); 
+        return encode;
+    }
+    TreeNode*deserhelper(stringstream &s){
+        string comp; 
+        getline(s,comp,','); 
+        if(comp=="#") return nullptr;
+        TreeNode*root=new TreeNode(stoi(comp));
+        root->left=deserhelper(s); 
+        root->right=deserhelper(s); 
+        return root; 
+    }
+    TreeNode* deserialize(string data) {
+        if(data=="#") return nullptr; 
+        stringstream s(data); 
+        return deserhelper(s); 
+    }
+};
