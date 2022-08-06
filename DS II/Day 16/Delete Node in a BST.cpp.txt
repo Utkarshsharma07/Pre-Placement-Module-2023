@@ -1,0 +1,56 @@
+class Solution {
+public:
+    TreeNode* minVal(TreeNode* root)
+    {
+        
+        TreeNode* temp=root;
+        while(temp->left!=NULL)
+        {
+            temp=temp->left;
+        }
+        return temp;
+        
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root)
+            return root;
+        if(root->val==key)
+        {
+            if(!root->left && !root->right)
+            {
+                delete root;
+                return NULL;
+            }
+            else if(!root->right && root->left)
+            {
+                TreeNode* temp=root->left;
+                delete root;
+                return temp;
+            }
+            else if(!root->left && root->right)
+            {
+                TreeNode* temp=root->right;
+                delete root;
+                return temp;
+            }
+            else if(root->right && root->left)
+            {
+                int min=minVal(root->right)->val;
+                root->val=min;
+                root->right=deleteNode(root->right,min);
+                return root;
+            }
+        }
+        else if(root->val>key)
+        {
+            root->left=deleteNode(root->left,key);
+            return root;
+        }
+        else
+        {
+            root->right=deleteNode(root->right,key);
+            return root;
+        }
+    return root;
+    }
+};
