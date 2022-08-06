@@ -1,0 +1,35 @@
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* a = headA;
+        vector<int> v;
+        while(a!=nullptr)
+        {
+            v.push_back(a->val);
+            a->val = 0;
+            a= a->next;
+        }
+        ListNode*b = headB;
+        ListNode* sol = nullptr;
+        bool check = false;
+        while(!check&&b!=nullptr)
+        {
+            if(b->val==0)
+            {
+                check = true;
+                sol = b;
+            }
+            b = b->next;
+        }
+        
+        ListNode* temp = headA;
+        int i = 0;
+        while(temp!=nullptr)
+        {
+            temp->val = v[i++];
+            temp = temp->next;
+        }
+           
+        return sol;
+    }
+};
