@@ -1,0 +1,24 @@
+class Solution {
+public:
+
+void traverse(TreeNode* root,set<int,greater<int>> &st)
+{
+    if(!root)
+        return;
+    traverse(root->left,st);
+    st.insert(root->val);
+    traverse(root->right,st);
+    
+}
+int kthSmallest(TreeNode* root, int k) {
+    set<int ,greater<int>> st;
+    traverse(root,st);
+    set<int, greater<int>> :: iterator it = st.end();
+    while(k>0)
+       {
+         it--;
+         k--;
+       }  
+    return *it;
+}
+};
