@@ -1,0 +1,36 @@
+class Solution {
+public:
+
+void rightsideView(TreeNode* root,int h,vector<int> &ans)
+{
+    if(root==NULL)
+        return ;
+   
+   if(ans[h]==-1)
+       ans[h] = root->val;
+    
+    rightsideView(root->right,h+1,ans);
+    rightsideView(root->left,h+1,ans);
+}
+    
+    
+vector<int> rightSideView(TreeNode* root) {
+    
+  if(root==nullptr)
+      return {};
+
+  vector<int> ans(100,-1);
+  rightsideView(root,0,ans);
+  
+  vector<int> result;
+    for(int i = 0;i<ans.size();i++)
+    {
+        if(ans[i]==-1)
+           break;
+        
+        result.push_back(ans[i]);
+        
+     }
+  return result;
+}
+};
