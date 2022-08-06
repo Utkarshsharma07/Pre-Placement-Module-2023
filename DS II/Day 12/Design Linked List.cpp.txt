@@ -1,0 +1,79 @@
+class MyLinkedList {
+private:
+    struct Node {
+        int data;
+        Node *next;
+        Node(int x) : data(x), next(NULL) {}
+    };
+    Node *head;
+    int size;
+public:
+    MyLinkedList() {
+        head = NULL;
+        size = 0;
+    }
+
+    int get(int index) {
+        if (index >= size) return -1;
+        Node *iter = head;
+        for (int i = 0; i < index; ++i) {
+            iter = iter -> next;
+        }
+        return iter -> data;
+    }
+
+    void addAtHead(int val) {
+        Node *temp = new Node(val);
+        temp -> next = head;
+        head = temp;
+        size++;
+    }
+
+    void addAtTail(int val) {
+        Node *temp = head, *toAdd = new Node(val);
+        while (temp -> next != NULL) {
+            temp = temp -> next;
+        }
+        temp -> next = toAdd;
+        size++;
+    }
+
+    void addAtIndex(int index, int val) {
+        if (index > size) return;
+        if (index == 0) {
+            addAtHead(val);
+        } else if (index == size) {
+            addAtTail(val);
+        } else {
+            Node *current = head, *prev;
+            for (int i = 0; i < index; ++i) {
+                prev = current;
+                current = current -> next;
+            }
+            Node *toInsert = new Node(val);
+            prev -> next = toInsert;
+            toInsert -> next = current;
+            size++;
+        }
+    }
+
+    void deleteAtIndex(int index) {
+        if (index >= size) return;
+        Node *current = head, *prev, *toDel;
+        if (index == 0) {
+            head = head -> next;
+            delete current;
+            size--;
+        } else {
+            for (int i = 0; i < index; ++i) {
+                prev = current;
+                current = current -> next;
+            }
+            toDel = current;
+            prev -> next = current -> next;
+            delete toDel;
+            size--;
+        }
+    }
+    
+};
