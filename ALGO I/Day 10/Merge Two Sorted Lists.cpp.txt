@@ -1,0 +1,56 @@
+class Solution {
+public:
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+
+    list<int> lst1;
+    list<int> lst2;
+    
+    ListNode* ptr1 = list1;
+    ListNode* ptr2 = list2;
+    
+	// Storing the data of list1 into lst1 and list2 into lst2
+    while(ptr1 != NULL || ptr2 != NULL){
+        
+        if(ptr1 != NULL){
+            
+            lst1.push_back(ptr1->val);
+            ptr1 = ptr1 -> next;
+        }
+        
+        if(ptr2 != NULL){
+            
+            lst2.push_back(ptr2->val);
+            ptr2 = ptr2 -> next;
+        }
+    }
+    
+	// Merging both the lists
+    lst1.merge(lst2);
+    
+    
+    if(!lst1.empty()){
+        
+        int data = lst1.front();   
+        lst1.pop_front();
+		
+        ListNode* head = new ListNode(data); // New head is created
+        ListNode* ptr3 = head;
+        
+        while( !lst1.empty()){
+        
+           int data = lst1.front();
+       
+           lst1.pop_front();
+           ListNode* New = new ListNode(data);
+           ptr3 -> next = New;
+           ptr3 = New;
+        
+    }        
+         return head;
+                    
+    }else{
+        
+        return NULL;
+    }    
+}
+};
